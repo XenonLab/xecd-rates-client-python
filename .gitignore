@@ -1,0 +1,6 @@
+XecdClient.pyc
+__pycache__/
+test/__init__.pyc
+test/__pycache__/
+.idea
+.vscode
