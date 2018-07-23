@@ -19,11 +19,25 @@ This client will work with both python2 and python3.
 The preferred way to install this package is through Github.
 
 ```
-TODO
-pip install >github link<
+pip install git+https://github.com/XenonLab/xecd-rates-client-python
 ```
+
+Or you can clone the git repository :
+
 ```
-pip install >package name when published to pip<>
+git clone git@github.com:XenonLab/xecd-rates-client-python.git
+```
+
+And install the xecd client with build target :
+
+```
+cd xecd-rates-client-python && make build
+```
+
+Or install the xecd client with pip :
+
+```
+cd xecd-rates-client-python && pip install .
 ```
 
 This package follows [semantic versioning][3].
@@ -31,7 +45,7 @@ This package follows [semantic versioning][3].
 ## Usage
 
 ```python
-from XecdClient import XecdClient
+from xecd_rates_client import XecdClient
 
 xecd = XecdClient('accountId', 'apiKey')
 
@@ -55,6 +69,12 @@ response = xecd.monthly_average(55, "CAD", "EUR", 2017, 5)
 xecd_rates_client_python is an open-source project. Submit a pull request to contribute!
 
 ## Testing
+You can use the build target that will launch unit and integration tests :
+
+```bash
+make test
+```
+Or use call python test modules from cmdline 
 
 ```bash
 python3 -m test.UnitTest
