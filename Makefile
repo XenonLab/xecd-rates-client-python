@@ -8,15 +8,14 @@ DOCDIR := ${PWD}/docs
 DOCSRCDIR := ${DOCDIR}/source
 APPDIR := ${PWD}/${APPNAME}
 
-all: doc build test doc
+all: build doc test
 
 help:
 	@echo -e \
 		"${APP_NAME} builder Targets :\n" \
 		"  --> build: build project\n" \
-		"  --> test: test project\n" \
 		"  --> doc: generate documentation\n" \
-		"  --> pip: generate pip package\n" \
+		"  --> test: test project\n" \
 		"  --> clean: clean project\n" \
 		""
 build:
@@ -62,4 +61,5 @@ doc: clean initdoc
 clean:
 	if [ -d ${DOCDIR}] ]; then  rm -R ${DOCDIR}/build; fi
 
-.PHONY: all build test doc pip clean
+
+.PHONY: all build doc test clean

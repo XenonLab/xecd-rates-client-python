@@ -1,4 +1,5 @@
-from setuptools import setup, find_packages
+from setuptools import setup
+
 
 def readme():
     with open('README.rst') as f:
@@ -18,6 +19,7 @@ extra_requires = {
     'dev': dev_requires,
     'complete': complete_requires,
 }
+
 setup(
     name='xecd_rates_client',
     version='0.1.0',
@@ -35,7 +37,6 @@ setup(
     ],
     url='https://github.com/XenonLab/xecd-rates-client-python',
     packages=['xecd_rates_client'],
-    include_package_data=True,
     install_requires=install_requires,
     extras_require=extra_requires,
     zip_safe=False
