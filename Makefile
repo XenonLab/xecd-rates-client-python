@@ -5,6 +5,7 @@ APPNAME:= xecd_rates_client
 VERSION := 0.1.0
 
 DOCDIR := ${PWD}/docs
+COVDIR :=  ${PWD}/htmlcov
 DOCSRCDIR := ${DOCDIR}/source
 APPDIR := ${PWD}/${APPNAME}
 
@@ -22,8 +23,41 @@ build:
 	if [ -d ${PWD}/venv ]; then \
 		./venv/bin/pip install . ;\
 	else \
-		python setup.py install ; \
+		python setup.py install .; \
 	fi
+
+build_dev:
+	if [ -d ${PWD}/venv ]; then \
+		./venv/bin/pip install .[dev] ;\
+	else \
+		python setup.py install .[dev]; \
+	fi
+
+build_test:
+	if [ -d ${PWD}/venv ]; then \
+		./venv/bin/pip install .[test];\
+	else \
+		pip install .[test];\
+	fi
+
+
+unittest:
+	if [ -d ${PWD}/venv ]; then \
+		./venv/bin/python -m test.UnitTest ;\
+		./venv/bin/python -m test.IntegrationTest ;\
+	else \
+		python -m test.UnitTest ; \
+		python -m test.IntegrationTest ; \
+	fi
+
+coverage:
+	if [ -d ${PWD}/venv ]; then \
+		./venv/bin/coverage run --source ${APPNAME}  -m unittest && ./venv/bin/coverage html;\
+	else \
+		coverage run --source ${APPNAME} -m unittest && coverage html;\
+	fi
+
+test: unittest coverage
 
 test:
 	if [ -d ${PWD}/venv ]; then \
@@ -59,7 +93,9 @@ doc: clean initdoc
 
 
 clean:
-	if [ -d ${DOCDIR}] ]; then  rm -R ${DOCDIR}/build; fi
-
+	if [ -d ${DOCDIR}/build ]; then  rm -R ${DOCDIR}/build; fi
+	if [ -d ${COVDIR} ]; then rm -R ${COVDIR}; fi
+	if [ -f .coverage ]; then rm .coverage; fi
+	if [ -d ${APPNAME}.egg-info ]; then rm -R ${APPNAME}.egg-info; fi
 
 .PHONY: all build doc test clean

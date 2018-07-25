@@ -6,11 +6,12 @@ def readme():
         return f.read()
 
 
-doc_requires = ['sphinx', 'numpydoc', 'sphinx-rtd-theme']
+doc_requires = ['sphinx', 'numpydoc', 'sphinx-rtd-theme', 'snakefood']
 test_requires = ['coverage', 'pytest == 3.3.1', 'pytest-mock']
 install_requires = ['requests']
+venv_requires = ['virtualenv']
 
-dev_requires = doc_requires + test_requires
+dev_requires = doc_requires + test_requires + venv_requires
 complete_requires = dev_requires + test_requires + doc_requires
 
 extra_requires = {

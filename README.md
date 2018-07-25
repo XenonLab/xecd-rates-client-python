@@ -19,7 +19,7 @@ This client will work with both python2 and python3.
 The preferred way to install this package is through Github.
 
 ```
-pip install git+https://github.com/XenonLab/xecd-rates-client-python
+pip install git+https://github.com/XenonLab/xecd-rates-client-python.git@fix-python-packaging#egg=xecd_rates_client
 ```
 
 Or you can clone the git repository :
