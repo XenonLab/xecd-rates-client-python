@@ -5,19 +5,21 @@ These tests must be ran with python3 FROM parent directory
 Sample:
     python3 -m test.UnitTest
 """
-from XecdClient import XecdClient
+import json
 import unittest
 from unittest import mock
-import json
+
+from xecd_rates_client import XecdClient
+
 with open('test/data/testdata.json') as json_data:
     data = json.load(json_data)
-
 
 print("Running Unit Tests...")
 xecd = XecdClient('accountId', 'apiKey')
 
-"""mocking class"""
+
 def mockingResponse(*args, **kwargs):
+    """mocking class"""
     class MockResponse:
         def __init__(self, json_data, status_code):
             self.json_data = json_data
@@ -36,28 +38,30 @@ def mockingResponse(*args, **kwargs):
         return MockResponse(data["fakeConvertTo"], 200)
     elif args[0] == xecd.options['baseUrl'] + xecd.historicRateRequestUri:
         return MockResponse(data["fakeHistoricRate"], 200)
-    elif args[0] == xecd.options['baseUrl'] + xecd.historicRatePeriodRequestUri:
+    elif args[0] == xecd.options[
+        'baseUrl'] + xecd.historicRatePeriodRequestUri:
         return MockResponse(data["fakeHistoricRatePeriod"], 200)
     elif args[0] == xecd.options['baseUrl'] + xecd.monthlyAverageRequestUri:
         return MockResponse(data["fakeMonthlyAverage"], 200)
     return MockResponse(None, 404)
 
 
-
 """patch the class' request.get with the fake one"""
-@mock.patch('XecdClient.requests.get', side_effect = mockingResponse)
-    #has to be out here because it unpatches at the end of any testCASE
+
+
+@mock.patch('XecdClient.requests.get', side_effect=mockingResponse)
+# has to be out here because it unpatches at the end of any testCASE
 
 class unitTest(unittest.TestCase):
     def testAccountInfo(self, mock_get):
         response = xecd.account_info()
         differenceSet = set(response) ^ set(data["fakeAccountInfo"])
         assert len(differenceSet) == 0
-            #Python does not have native javascript objects, things are dictionaries
-            #Request.get returns extra information encoded into the returned string, gone after python parses it
-            #Dictionaries are unordered, simple comparison does not work well
-            #Using XOR to check set differences is more efficient than coding my own loop with comparisons
-    
+        # Python does not have native javascript objects, things are dictionaries
+        # Request.get returns extra information encoded into the returned string, gone after python parses it
+        # Dictionaries are unordered, simple comparison does not work well
+        # Using XOR to check set differences is more efficient than coding my own loop with comparisons
+
     def testCurrencies(self, mock_get):
         response = xecd.currencies()
         differenceSet = set(response) ^ set(data["fakeCurrencies"])
@@ -79,7 +83,9 @@ class unitTest(unittest.TestCase):
         assert len(differenceSet) == 0
 
     def testHistoricRatePeriod(self, mock_get):
-        response = xecd.historic_rate_period(55, "EUR", "RUB", "2016-02-28T12:00", "2016-03-03T12:00")
+        response = xecd.historic_rate_period(55, "EUR", "RUB",
+                                             "2016-02-28T12:00",
+                                             "2016-03-03T12:00")
         differenceSet = set(response) ^ set(data["fakeHistoricRatePeriod"])
         assert len(differenceSet) == 0
 
@@ -89,4 +95,4 @@ class unitTest(unittest.TestCase):
         assert len(differenceSet) == 0
 
 
-unittest.main() #this actually runs the tests
+unittest.main()  # this actually runs the tests

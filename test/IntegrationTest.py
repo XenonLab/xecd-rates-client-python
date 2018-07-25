@@ -9,13 +9,15 @@ Samples:
     python3 -m test.IntegrationTest
     python -m test.IntegrationTest
 """
-from XecdClient import XecdClient
-import unittest
 import json
-import os #not needed if not using environment variables
+import os  # not needed if not using environment variables
+import unittest
+
+from xecd_rates_client import XecdClient
 
 print("Running Integration Tests...")
 xecd = XecdClient(os.environ['XecdAccountID'], os.environ['XecdApiKey'])
+
 
 class requestResponseTest(unittest.TestCase):
     def testAccountInfo(self):
@@ -26,7 +28,7 @@ class requestResponseTest(unittest.TestCase):
         assert 'organization' in jsonData
         assert 'package' in jsonData
         assert 'service_start_timestamp' in jsonData
-        
+
     def testCurrencies(self):
         response = xecd.currencies()
         jsonData = json.dumps(response)
@@ -69,7 +71,9 @@ class requestResponseTest(unittest.TestCase):
         assert 'to' in jsonData
 
     def testHistoricRatePeriod(self):
-        response = xecd.historic_rate_period(55, "EUR", "RUB", "2017-09-28T12:00", "2017-10-03T12:00")
+        response = xecd.historic_rate_period(55, "EUR", "RUB",
+                                             "2017-09-28T12:00",
+                                             "2017-10-03T12:00")
         jsonData = json.dumps(response)
         assert jsonData is not None
         assert 'terms' in jsonData
@@ -90,4 +94,4 @@ class requestResponseTest(unittest.TestCase):
         assert 'to' in jsonData
 
 
-unittest.main() #this actually runs the tests
+unittest.main()  # this actually runs the tests
