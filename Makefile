@@ -9,28 +9,30 @@ COVDIR :=  ${PWD}/htmlcov
 DOCSRCDIR := ${DOCDIR}/source
 APPDIR := ${PWD}/${APPNAME}
 
-all: build doc test
+all: build doc test coverage
 
 help:
 	@echo -e \
 		"${APP_NAME} builder Targets :\n" \
 		"  --> build: build project\n" \
+		"  --> build_dev: install dev dependencies\n" \
+		"  --> build_test: install test dependencies\n" \
 		"  --> doc: generate documentation\n" \
-		"  --> test: test project\n" \
+		"  --> test: test project and generate coverage report\n" \
 		"  --> clean: clean project\n" \
 		""
 build:
 	if [ -d ${PWD}/venv ]; then \
 		./venv/bin/pip install . ;\
 	else \
-		python setup.py install .; \
+		pip install .; \
 	fi
 
 build_dev:
 	if [ -d ${PWD}/venv ]; then \
 		./venv/bin/pip install .[dev] ;\
 	else \
-		python setup.py install .[dev]; \
+		pip install .[dev]; \
 	fi
 
 build_test:

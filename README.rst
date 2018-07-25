@@ -19,7 +19,10 @@ Installation
 
 The preferred way to install this package is through Github.
 
-``pip install git+https://github.com/XenonLab/xecd-rates-client-python.git@fix-python-packaging#egg=xecd_rates_client``
+``pip install git+https://github.com/XenonLab/xecd-rates-client-python.git#egg=xecd_rates_client``
+
+.. note::
+    This installation would install the master branch.
 
 Or you can clone the git repository :
 
@@ -29,7 +32,7 @@ And install the xecd client with build target :
 
 ``cd xecd-rates-client-python && make build``
 
-Or install the xecd client with pip :
+Or install the ``XecdClient`` directly with pip :
 
 ``cd xecd-rates-client-python && pip install .``
 
@@ -56,6 +59,10 @@ To generate the documentation, you first need to install test dependencies :
 ``make build_test``
 
 Once the test dependencies are available, you can generate the html documentation for this project.
+
+.. warning::
+    This target might fail regarding the python version you are using to install ``snakefood``.
+    It was working fine using python2.7, but went on error using python3.
 
 ``make doc``
 
@@ -98,12 +105,15 @@ You can use the build target that will launch unit and integration tests :
 
 The html coverage should then be available locally in ``./htmlcov/index.html``
 
-Note: the UnitTest must be ran with python3 due to its use of unittest.mock (which is not present as of python2.7). Despite this, the client itself is usable with both python 2 and 3.
+.. note::
+    The UnitTest must be ran with python3 due to its use of unittest.mock (which is not present as of python2.7).
+    Despite this, the client itself is usable with both python 2 and 3.
 
 Security Issues
 ---------------
 
-If you discover a security vulnerability within this package, please **DO NOT** publish it publicly. Instead, contact us at **security [at] xe.com**. We will follow up with you as soon as possible.
+If you discover a security vulnerability within this package, please **DO NOT** publish it publicly.
+Instead, contact us at **security [at] xe.com**. We will follow up with you as soon as possible.
 
 About Us
 --------

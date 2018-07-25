@@ -40,5 +40,5 @@ setup(
     packages=['xecd_rates_client'],
     install_requires=install_requires,
     extras_require=extra_requires,
-    zip_safe=False
+    zip_safe=True
 )
