@@ -9,7 +9,8 @@ Samples:
     python3 -m test.IntegrationTest
     python -m test.IntegrationTest
 """
-from XecdClient import XecdClient
+
+from xecd_rates_client import XecdClient
 import unittest
 import json
 import os #not needed if not using environment variables

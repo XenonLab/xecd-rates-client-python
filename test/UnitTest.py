@@ -5,7 +5,7 @@ These tests must be ran with python3 FROM parent directory
 Sample:
     python3 -m test.UnitTest
 """
-from XecdClient import XecdClient
+from xecd_rates_client import XecdClient
 import unittest
 from unittest import mock
 import json
@@ -45,7 +45,7 @@ def mockingResponse(*args, **kwargs):
 
 
 """patch the class' request.get with the fake one"""
-@mock.patch('XecdClient.requests.get', side_effect = mockingResponse)
+@mock.patch('requests.get', side_effect = mockingResponse)
     #has to be out here because it unpatches at the end of any testCASE
 
 class unitTest(unittest.TestCase):
