@@ -1,6 +1,10 @@
-XecdClient.pyc
 __pycache__/
-test/__init__.pyc
-test/__pycache__/
+*.py[cod]
+
 .idea
 .vscode
+build/
+dist/
+venv/
+xecd_rates_client.egg-info/
+

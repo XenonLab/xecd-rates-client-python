@@ -16,34 +16,43 @@ This client will work with both python2 and python3.
 
 ## Installation
 
-The preferred way to install this package is through Github.
+The preferred way to install this package is pip.
 
 ```
-TODO
-pip install >github link<
+pip install xecd-rates-client
 ```
+
+Or get the latest version from git:
 ```
-pip install >package name when published to pip<>
+pip install git+https://github.com/XenonLab/xecd-rates-client-python.git
 ```
+
 
 This package follows [semantic versioning][3].
 
 ## Usage
 
 ```python
-from XecdClient import XecdClient
+>>> from xecd_rates_client import XecdClient
+>>> xecd = XecdClient('ACCOUNT_ID', 'API_KEY')
 
-xecd = XecdClient('accountId', 'apiKey')
+>>> xecd.account_info()
+{'id': '11111111-1111-1111-1111-111111111111', 'organization': 'YOUR_ORG', 'package': 'ENTERPRISE_LIVE_INTERNAL', 'service_start_timestamp': '2018-01-01T00:00:00Z'}
 
+>>> xecd.convert_from("EUR", "CAD", 55)
+{'terms': 'http://www.xe.com/legal/dfs.php', 'privacy': 'http://www.xe.com/privacy.php', 'from': 'EUR', 'amount': 55.0, 'timestamp': '2018-08-21T15:31:00Z', 'to': [{'quotecurrency': 'CAD', 'mid': 82.7121317322}]}
 
-response = xecd.account_info()
-#do stuff with response
-response = xecd.currencies()
-response = xecd.convert_from("EUR", "CAD", 55)
-response = xecd.convert_to("RUB", "CAD", 55)
-response = xecd.historic_rate("2016-12-25", "12:34", "EUR", "CAD", 55)
-response = xecd.historic_rate_period(55, "EUR", "RUB", "2016-02-28T12:00", "2016-03-03T12:00")
-response = xecd.monthly_average(55, "CAD", "EUR", 2017, 5)
+>>> xecd.convert_to("RUB", "CAD", 55)
+{'terms': 'http://www.xe.com/legal/dfs.php', 'privacy': 'http://www.xe.com/privacy.php', 'to': 'RUB', 'amount': 55.0, 'timestamp': '2018-08-21T15:32:00Z', 'from': [{'quotecurrency': 'CAD', 'mid': 1.0652293852}]}
+
+>>> xecd.historic_rate("2016-12-25", "12:34", "EUR", "CAD", 55)
+{'terms': 'http://www.xe.com/legal/dfs.php', 'privacy': 'http://www.xe.com/privacy.php', 'from': 'EUR', 'amount': 55.0, 'timestamp': '2016-12-25T13:00:00Z', 'to': [{'quotecurrency': 'CAD', 'mid': 77.8883951909}]}
+
+>>> xecd.historic_rate_period(55, "EUR", "RUB", "2016-02-28T12:00", "2016-03-03T12:00")
+{'terms': 'http://www.xe.com/legal/dfs.php', 'privacy': 'http://www.xe.com/privacy.php', 'from': 'EUR', 'amount': 55.0, 'to': {'RUB': [{'mid': 4590.1222691671, 'timestamp': '2016-02-28T12:00:00Z'}, {'mid': 4545.42879069, 'timestamp': '2016-02-29T12:00:00Z'}, {'mid': 4433.0643335184, 'timestamp': '2016-03-01T12:00:00Z'}, {'mid': 4409.6291908683, 'timestamp': '2016-03-02T12:00:00Z'}, {'mid': 4396.2068371801, 'timestamp': '2016-03-03T12:00:00Z'}]}}
+
+>>> xecd.monthly_average(55, "CAD", "EUR", 2017, 5)
+{'terms': 'http://www.xe.com/legal/dfs.php', 'privacy': 'http://www.xe.com/privacy.php', 'from': 'CAD', 'amount': 55.0, 'year': 2017, 'to': {'EUR': [{'monthlyAverage': 36.5976590134, 'month': 5, 'daysInMonth': 31}]}}
 ```
 
 ## Documentation
