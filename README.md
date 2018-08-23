@@ -66,12 +66,16 @@ xecd_rates_client_python is an open-source project. Submit a pull request to con
 ## Testing
 
 ```bash
-python3 -m test.UnitTest
-python3 -m test.IntegrationTest
-python -m test.IntegrationTest
+make test
 ```
 
-Note: the UnitTest must be ran with python3 due to its use of unittest.mock (which is not present as of python2.7). Despite this, the client itself is usable with both python 2 and 3.
+Or, to run individual test suites
+```bash
+python -m unittest tests/test_unit.py
+python -m unittest tests/test_integration.py
+```
+
+Note: the unit tests must be run with python3 due to its use of unittest.mock (which is not present as of python2.7). Despite this, the client itself is usable with both python 2 and 3.
 
 ## Security Issues
 
