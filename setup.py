@@ -7,13 +7,14 @@ setuptools.setup(
     name='xecd_rates_client',
     version='1.0.0',
     url='https://github.com/XenonLab/xecd-rates-client-python',
-    packages=setuptools.find_packages(exclude=['test*']),
+    packages=setuptools.find_packages(exclude=['tests*']),
     description='XECD REST Client',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='XE.com Inc. Development Team',
     author_email='python@xe.com',
     zip_safe=True,
+    test_suite='tests',
     install_requires=[
         'requests>=2.19.1'
     ],
