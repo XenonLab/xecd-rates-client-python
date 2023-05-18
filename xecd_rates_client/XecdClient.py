@@ -1,9 +1,10 @@
 import requests
 
+
 class XecdClient(object):
     """XECD REST API Client"""
 
-    def __init__(self, account_id, api_key, options = {}):
+    def __init__(self, account_id, api_key, options={}):
         self.options = {
             'auth': {
                 'user': account_id,
@@ -24,7 +25,7 @@ class XecdClient(object):
 
     def __send(self, ops):
         self.options.update(ops)
-        #cached for debugging purposes
+        # cached for debugging purposes
         url = self.options["url"]
         username = self.options['auth']['user']
         password = self.options['auth']['password']
@@ -33,26 +34,43 @@ class XecdClient(object):
         data = temp.json()
         return data
 
-    def account_info(self, options = {}):
+    def account_info(
+        self,
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.accountInfoRequestUri
         }
         ops.update(options)
         return self.__send(ops)
 
-    def currencies(self, obsolete = False, language = "en", iso = ['*'], options = {}):
+    def currencies(
+        self,
+        obsolete=False,
+        language="en",
+        iso=['*'],
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.currenciesRequestUri,
             'qs': {
                 'obsolete': True if obsolete else False,
                 'language': language,
-                'iso': ','.join(iso) #format: abc,def,ghi
+                'iso': ','.join(iso)  # format: abc,def,ghi
             }
         }
         ops.update(options)
         return self.__send(ops)
 
-    def convert_from(self, from_currency ="USD", to_currency ="*", amount = 1, obsolete = False, inverse = False, options = {}):
+    def convert_from(
+        self,
+        from_currency="USD",
+        to_currency="*",
+        amount=1,
+        obsolete=False,
+        inverse=False,
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.convertFromRequestUri,
             'qs': {
@@ -66,7 +84,15 @@ class XecdClient(object):
         ops.update(options)
         return self.__send(ops)
 
-    def convert_to(self, to_currency ="USD", from_currency ="*", amount = 1, obsolete = False, inverse = False, options = {}):
+    def convert_to(
+        self,
+        to_currency="USD",
+        from_currency="*",
+        amount=1,
+        obsolete=False,
+        inverse=False,
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.convertToRequestUri,
             'qs': {
@@ -80,7 +106,17 @@ class XecdClient(object):
         ops.update(options)
         return self.__send(ops)
 
-    def historic_rate(self, date, time, from_currency ="USD", to_currency ="*", amount = 1, obsolete = False, inverse = False, options = {}):
+    def historic_rate(
+        self,
+        date,
+        time,
+        from_currency="USD",
+        to_currency="*",
+        amount=1,
+        obsolete=False,
+        inverse=False,
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.historicRateRequestUri,
             'qs': {
@@ -96,15 +132,28 @@ class XecdClient(object):
         ops.update(options)
         return self.__send(ops)
 
-    def historic_rate_period(self, amount = 1, from_currency ="USD", to_currency ="*", start_timestamp = None, end_timestamp = None, interval ="DAILY", obsolete = False, inverse = False, page = 1, per_page = 30, options = {}):
+    def historic_rate_period(
+        self,
+        amount=1,
+        from_currency="USD",
+        to_currency="*",
+        start_timestamp=None,
+        end_timestamp=None,
+        interval="DAILY",
+        obsolete=False,
+        inverse=False,
+        page=1,
+        per_page=30,
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.historicRatePeriodRequestUri,
             'qs': {
                 'from': from_currency,
                 'to': to_currency,
                 'amount': amount,
-                'start_timestamp': start_timestamp if (start_timestamp != None) else None,
-                'end_timestamp': end_timestamp if (end_timestamp != None) else None,
+                'start_timestamp': start_timestamp if (start_timestamp is not None) else None,
+                'end_timestamp': end_timestamp if (end_timestamp is not None) else None,
                 'interval': interval,
                 'obsolete': True if obsolete else False,
                 'inverse': True if inverse else False,
@@ -116,7 +165,17 @@ class XecdClient(object):
         ops.update(options)
         return self.__send(ops)
 
-    def monthly_average(self, amount = 1, from_currency ="USD", to_currency ="*", year = None, month = None, obsolete = False, inverse = False, options = {}):
+    def monthly_average(
+        self,
+        amount=1,
+        from_currency="USD",
+        to_currency="*",
+        year=None,
+        month=None,
+        obsolete=False,
+        inverse=False,
+        options={}
+    ):
         ops = {
             'url': self.options['baseUrl'] + self.monthlyAverageRequestUri,
             'qs': {
